@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>vue.js</title>
+  </head>
+<body>
+  <header>
+    <h1>vue.js</h1>
+  </header>
+
+  <div class="container">
+    <div id="img_unit">
+      <!-- 以下のv-forは、vue.jsのfor構文である -->
+      <!-- 配列PhotosからPhotoへ一個づつ要素を取り出している -->
+      <div class="Photo" v-for="Photo in Photos">
+        <img :src="Photo.path">
+        <div class="inner"<p>{{ Photo.caption }}<span>{{ Photo.name }}
+        </span></p></div>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue ({
+      el: '#img_unit',
+      data: {
+        Photos: []
+      },
+      created: function() {
+        var self = this;
+        $.getJSON('https:h2o-space.com/htmlbook/images.php', function
+        (data) {
+          // 以下は35行目のthisをselfへ代入したことで、スコープ内で使用できるようにした
+          self.Photos = data;
+        });
+      }
+    });
+  </script>
+</body>
+</html>
